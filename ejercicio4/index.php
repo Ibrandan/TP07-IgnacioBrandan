@@ -3,9 +3,8 @@
     require_once('html/header.html');
 ?>
 
-<main>
     <section class="form__contenedor">
-        <form action="php/procesar.php" method="POST">
+        <form action="php/procesar.php" method="POST" enctype="multipart/form-data">
             <section>
                 <label for="lbl-user">Usuario:</label>
                 <input type="text" name="user" id="lbl-user" required>        

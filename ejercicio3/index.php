@@ -1,6 +1,7 @@
 <?php 
     $ruta = 'css';
     require_once('html/header.html');
+    date_default_timezone_set('America/Argentina/Tucuman');
 ?>
 
 <main>
@@ -16,24 +17,26 @@
                     $numero = $separador[0];
                     $apellido = $separador[1];
                     $nombre = $separador[2];
-                    $fechaNac = date_create($separador[3]);
+
+                    $fechaActual = date('z');
+                    $fechaTxt = date_create($separador[3]);
+                    $fechaNac = date_format($fechaTxt,'z');
+                    $fecha = abs($fechaNac - $fechaActual);
+
                     echo '<article>';
                     echo '<h2>' . $numero . ' - ' . $apellido . ', ' . $nombre . '</h2>';
-                    echo '<p> Fecha de nacimiento: ' . date_format($fechaNac,'d') . ' de ' . date_format($fechaNac,'F'). ' de '  . date_format($fechaNac,'Y') . '</p>';
+                    echo '<p> Fecha de nacimiento: ' . date_format($fechaTxt,'d') . ' de ' . date_format($fechaTxt,'F'). ' de '  . date_format($fechaTxt,'Y') . '</p>';
 
-
-                    $resta = strtotime(date('d-m')) - strtotime($separador[3]);
-
-                    if ($resta == 0) {
+                    if ($fechaActual == $fechaNac) {
                         echo '<p class="cumple"> FELIZ CUMPLEAÑOS </p>';
                     } else {
-                        echo '<p> Dias restantes para el cumpleaños: ' . $resta . '</p>';
+                        echo '<p> Dias restantes para el cumpleaños: ' . $fecha . '</p>';
                     }
                     echo '</article>';
 
                 }
             }
-
+            fclose($archivo);
         ?>
     </section>
 </main>
